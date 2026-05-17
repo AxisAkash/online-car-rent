@@ -1,3 +1,4 @@
+// Handles AJAX blog create, list, delete, and client-side validation.
 document.addEventListener("DOMContentLoaded", function () {
     const blogForm = document.getElementById("blogForm");
     const refreshBtn = document.getElementById("refreshBtn");
