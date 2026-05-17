@@ -275,4 +275,18 @@ textarea {
     .blog-card {
         padding: 21px;
     }
+    .footer {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 28px;
+    padding: 18px 22px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer strong {
+    color: white;
+}
+
 }

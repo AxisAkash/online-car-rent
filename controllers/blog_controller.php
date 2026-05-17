@@ -1,5 +1,6 @@
-// Handles blog API requests, validation, and authorization.
+
 <?php
+// Handles blog API requests, validation, and authorization.
 
 require_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../models/blog_model.php";
