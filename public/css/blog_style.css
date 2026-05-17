@@ -1,0 +1,278 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    color: #1f2937;
+}
+
+/* Top Navigation */
+.topbar {
+    background: #0f172a;
+    color: white;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.topbar nav {
+    display: flex;
+    gap: 18px;
+}
+
+.topbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.2s ease;
+}
+
+.topbar a:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+/* Main Layout */
+.page-wrapper {
+    width: 90%;
+    max-width: 1050px;
+    margin: 36px auto;
+}
+
+/* Hero Section */
+.intro-card {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border-radius: 18px;
+    padding: 34px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.25);
+}
+
+.intro-card h1 {
+    margin: 0 0 10px;
+    font-size: 34px;
+}
+
+.intro-card p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+.login-info {
+    margin-top: 18px;
+    padding: 13px 15px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 10px;
+}
+
+/* Cards */
+.form-card,
+.blog-card {
+    background: white;
+    border-radius: 18px;
+    padding: 26px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.form-card h2,
+.blog-section h2 {
+    margin-top: 0;
+    color: #0f172a;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    background: #f8fafc;
+    transition: 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Buttons */
+.primary-btn,
+.refresh-btn,
+.delete-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.primary-btn {
+    background: #2563eb;
+    color: white;
+}
+
+.primary-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.refresh-btn {
+    background: #e0e7ff;
+    color: #1e3a8a;
+}
+
+.refresh-btn:hover {
+    background: #c7d2fe;
+}
+
+.delete-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+    margin-top: 14px;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    color: white;
+}
+
+/* Messages */
+.error-text {
+    display: block;
+    color: #dc2626;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.message {
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #2563eb;
+}
+
+/* Blog List */
+.section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 26px 0 16px;
+}
+
+.blog-list {
+    display: grid;
+    gap: 20px;
+}
+
+.blog-card {
+    position: relative;
+}
+
+.blog-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #111827;
+    font-size: 22px;
+}
+
+.blog-meta {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.blog-content {
+    line-height: 1.7;
+    color: #374151;
+    font-size: 16px;
+}
+
+.empty-text,
+.error-box {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.error-box {
+    color: #dc2626;
+}
+
+/* Mobile Responsive */
+@media (max-width: 700px) {
+    .topbar {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+        padding: 18px 5%;
+    }
+
+    .topbar nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .page-wrapper {
+        width: 94%;
+        margin: 24px auto;
+    }
+
+    .intro-card {
+        padding: 26px;
+    }
+
+    .intro-card h1 {
+        font-size: 27px;
+    }
+
+    .section-title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .form-card,
+    .blog-card {
+        padding: 21px;
+    }
+}
