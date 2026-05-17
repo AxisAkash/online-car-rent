@@ -1,5 +1,6 @@
-// Handles database operations for blog posts.
+
 <?php
+// Handles database operations for blog posts.
 
 class BlogModel
 {

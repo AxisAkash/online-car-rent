@@ -279,9 +279,16 @@ $userRole = $_SESSION["role"] ?? null;
 
 </main>
 
-<p class="footer-note">
-    Student ID: 23-54264-3 | CRUD: Create, Read, Delete
-</p>
+
+<footer class="footer">
+    <p>
+        <strong>Online Car Rent</strong> &copy; 2026. All rights reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>
 
 </body>
 </html>
