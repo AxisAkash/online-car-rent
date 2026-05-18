@@ -11,24 +11,33 @@ document.addEventListener("DOMContentLoaded", function () {
     const totalCostText = document.getElementById("totalCost");
     const errorText = document.getElementById("orderFormError");
 
-    const pricePerDay = parseFloat(orderForm.dataset.price);
+    const carIdInput = orderForm.querySelector('input[name="car_id"]');
+    const calculateUrl = orderForm.dataset.calculateUrl;
+
+    let latestCalculationValid = false;
 
     function showError(message) {
         errorText.textContent = message;
+        latestCalculationValid = false;
     }
 
     function clearError() {
         errorText.textContent = "";
     }
 
-    function calculateTotal() {
+    function resetCostBox() {
+        totalDaysText.textContent = "0 day";
+        totalCostText.textContent = "BDT 0.00";
+    }
+
+    function validateDatesBeforeAjax() {
         const startDateValue = startDateInput.value;
         const endDateValue = endDateInput.value;
 
-        totalDaysText.textContent = "0 day";
-        totalCostText.textContent = "BDT 0.00";
+        resetCostBox();
 
         if (!startDateValue || !endDateValue) {
+            latestCalculationValid = false;
             return false;
         }
 
@@ -48,25 +57,52 @@ document.addEventListener("DOMContentLoaded", function () {
             return false;
         }
 
-        const differenceInTime = endDate.getTime() - startDate.getTime();
-        const totalDays = differenceInTime / (1000 * 60 * 60 * 24);
-        const totalCost = totalDays * pricePerDay;
-
-        totalDaysText.textContent = totalDays + (totalDays === 1 ? " day" : " days");
-        totalCostText.textContent = "BDT " + totalCost.toFixed(2);
-
         clearError();
         return true;
     }
 
-    startDateInput.addEventListener("change", calculateTotal);
-    endDateInput.addEventListener("change", calculateTotal);
+    async function calculateTotalByAjax() {
+        if (!validateDatesBeforeAjax()) {
+            return false;
+        }
+
+        const formData = new FormData();
+        formData.append("car_id", carIdInput.value);
+        formData.append("start_date", startDateInput.value);
+        formData.append("end_date", endDateInput.value);
+
+        try {
+            const response = await fetch(calculateUrl, {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+                showError(data.message || "Total cost could not be calculated.");
+                return false;
+            }
+
+            totalDaysText.textContent = data.days + (Number(data.days) === 1 ? " day" : " days");
+            totalCostText.textContent = data.formatted_total;
+
+            clearError();
+            latestCalculationValid = true;
+            return true;
+        } catch (error) {
+            showError("Server error. Please try again.");
+            return false;
+        }
+    }
+
+    startDateInput.addEventListener("change", calculateTotalByAjax);
+    endDateInput.addEventListener("change", calculateTotalByAjax);
 
     orderForm.addEventListener("submit", function (event) {
-        const isValid = calculateTotal();
-
-        if (!isValid) {
+        if (!latestCalculationValid) {
             event.preventDefault();
+            calculateTotalByAjax();
         }
     });
 });

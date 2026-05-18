@@ -1,5 +1,9 @@
 <?php require __DIR__ . '/../layouts/header.php'; ?>
 
+<?php
+$isMember = isset($_SESSION['user_id'], $_SESSION['role']) && $_SESSION['role'] === 'member';
+?>
+
 <link rel="stylesheet" href="<?= BASE_URL; ?>public/css/order.css">
 
 <section class="order-page-hero">
@@ -9,6 +13,23 @@
         <p>
             Select a car type, compare available cars, and view details before you place a rental order.
         </p>
+    </div>
+
+    <div class="order-hero-card">
+        <h3>Rental History</h3>
+        <p>View your confirmed, cancelled, and pending rental orders.</p>
+
+        <div class="hero-card-actions">
+            <?php if ($isMember): ?>
+                <a href="<?= BASE_URL; ?>rental_history.php" class="history-hero-btn">
+                    View Rental History
+                </a>
+            <?php else: ?>
+                <a href="<?= BASE_URL; ?>login.php" class="history-hero-btn">
+                    Login to View History
+                </a>
+            <?php endif; ?>
+        </div>
     </div>
 </section>
 

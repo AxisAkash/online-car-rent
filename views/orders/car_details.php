@@ -75,13 +75,13 @@ $today = date('Y-m-d');
                 </div>
                 <?php unset($_SESSION['order_error']); ?>
             <?php endif; ?>
-            
+
             <form
                 class="order-form-card"
                 id="orderForm"
                 method="POST"
                 action="<?= BASE_URL; ?>invoice.php"
-                data-price="<?= e($car['price_per_day']); ?>"
+                data-calculate-url="<?= BASE_URL; ?>api/calculate_total_cost.php"
             >
                 <input type="hidden" name="car_id" value="<?= e($car['id']); ?>">
                 <input type="hidden" name="csrf_token" value="<?= e($_SESSION['csrf_token']); ?>">

@@ -815,3 +815,470 @@
         text-align: center;
     }
 }
+
+.payment-hero {
+    margin-bottom: 24px;
+}
+
+.payment-wrapper {
+    max-width: 1180px;
+    margin: 0 auto 44px;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 24px;
+}
+
+.payment-summary-card,
+.payment-form-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 26px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
+    padding: 26px;
+}
+
+.payment-summary-card h2,
+.payment-form-card h2 {
+    margin: 0 0 18px;
+    color: #0f172a;
+    font-size: 28px;
+}
+
+.payment-car-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.payment-car-image {
+    height: 95px;
+    background: #e2e8f0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.payment-car-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.payment-placeholder {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+    color: #1e3a8a;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.payment-car-row h3 {
+    margin: 0 0 6px;
+    color: #0f172a;
+    font-size: 22px;
+}
+
+.payment-car-row p {
+    margin: 0;
+    color: #64748b;
+    font-weight: 800;
+}
+
+.payment-info-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.payment-info-list div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.payment-info-list span {
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.payment-info-list strong {
+    color: #0f172a;
+    text-align: right;
+}
+
+.payment-method-group {
+    margin-bottom: 16px;
+}
+
+.payment-form-card select,
+.payment-form-card input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    background: #ffffff;
+    outline: none;
+    font-size: 15px;
+}
+
+.payment-form-card select:focus,
+.payment-form-card input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.payment-help-text {
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.success-wrapper {
+    max-width: 850px;
+    margin: 42px auto;
+}
+
+.success-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 30px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    padding: 38px;
+    text-align: center;
+}
+
+.success-icon {
+    width: 74px;
+    height: 74px;
+    margin: 0 auto 18px;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #166534;
+    display: grid;
+    place-items: center;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.success-card h1 {
+    margin: 0 0 12px;
+    color: #0f172a;
+    font-size: 38px;
+}
+
+.success-card p {
+    max-width: 620px;
+    margin: 0 auto 24px;
+    color: #475569;
+    line-height: 1.7;
+}
+
+.success-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+    text-align: left;
+}
+
+.success-summary div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 14px;
+}
+
+.success-summary span {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.success-summary strong {
+    color: #0f172a;
+}
+
+.success-actions {
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 860px) {
+    .payment-wrapper,
+    .success-wrapper {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .payment-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .payment-car-row,
+    .success-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-info-list div {
+        flex-direction: column;
+    }
+
+    .payment-info-list strong {
+        text-align: left;
+    }
+
+    .success-actions {
+        flex-direction: column;
+    }
+
+    .success-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.hero-card-actions {
+    margin-top: 18px;
+}
+
+.history-hero-btn {
+    display: inline-block;
+    background: #ffffff;
+    color: #1d4ed8;
+    padding: 11px 15px;
+    border-radius: 14px;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.history-hero-btn:hover {
+    background: #dbeafe;
+}
+
+.history-hero {
+    margin-bottom: 24px;
+}
+
+.history-wrapper {
+    max-width: 1180px;
+    margin: 0 auto 44px;
+}
+
+.history-top-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.history-top-row h2 {
+    margin: 0 0 6px;
+    color: #0f172a;
+    font-size: 30px;
+}
+
+.history-top-row p {
+    margin: 0;
+    color: #64748b;
+    font-weight: 700;
+}
+
+.history-empty-card {
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    border-radius: 24px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+}
+
+.history-empty-card h3 {
+    margin: 0 0 10px;
+    color: #0f172a;
+    font-size: 26px;
+}
+
+.history-empty-card p {
+    margin: 0 0 18px;
+    color: #64748b;
+}
+
+.history-list {
+    display: grid;
+    gap: 18px;
+}
+
+.history-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    gap: 20px;
+}
+
+.history-car-image {
+    min-height: 210px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.history-car-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 210px;
+}
+
+.history-placeholder {
+    height: 100%;
+    min-height: 210px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+    color: #1e3a8a;
+    font-weight: 900;
+    font-size: 17px;
+}
+
+.history-main {
+    min-width: 0;
+}
+
+.history-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.history-title-row h3 {
+    margin: 0 0 6px;
+    color: #0f172a;
+    font-size: 26px;
+}
+
+.history-title-row p {
+    margin: 0;
+    color: #64748b;
+    font-weight: 800;
+}
+
+.history-status {
+    padding: 8px 13px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+
+.history-status.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.history-status.confirmed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.history-status.cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.history-grid div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 12px;
+}
+
+.history-grid span {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.history-grid strong {
+    color: #0f172a;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.history-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+@media (max-width: 980px) {
+    .history-wrapper {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+    .history-card {
+        grid-template-columns: 1fr;
+    }
+
+    .history-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .history-top-row,
+    .history-title-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .history-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .history-actions {
+        justify-content: stretch;
+    }
+
+    .history-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

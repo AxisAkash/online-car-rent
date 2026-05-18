@@ -151,6 +151,150 @@ class OrderController
         exit;
     }
 
+    public function showPayment()
+    {
+        $this->requireMember();
+
+        $orderId = isset($_GET['order_id']) ? (int) $_GET['order_id'] : 0;
+
+        if ($orderId <= 0) {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        $order = $this->orderModel->getOrderByIdForUser($orderId, (int) $_SESSION['user_id']);
+
+        if (!$order) {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        if ($order['status'] !== 'pending') {
+            header('Location: ' . BASE_URL . 'invoice.php?order_id=' . $orderId);
+            exit;
+        }
+
+        $pageTitle = 'Payment Method';
+
+        require __DIR__ . '/../views/orders/payment.php';
+    }
+
+    public function processPayment()
+    {
+        $this->requireMember();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        if (!$this->isValidCsrfToken($_POST['csrf_token'] ?? '')) {
+            die('Invalid request token.');
+        }
+
+        $orderId = isset($_POST['order_id']) ? (int) $_POST['order_id'] : 0;
+        $paymentMethod = trim($_POST['payment_method'] ?? '');
+        $transactionId = trim($_POST['transaction_id'] ?? '');
+
+        $allowedMethods = [
+            'credit_card',
+            'bkash',
+            'nagad',
+            'bank_transfer',
+            'cash_on_delivery'
+        ];
+
+        if ($orderId <= 0) {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        if (!in_array($paymentMethod, $allowedMethods, true)) {
+            $_SESSION['payment_error'] = 'Please select a valid payment method.';
+            header('Location: ' . BASE_URL . 'payment.php?order_id=' . $orderId);
+            exit;
+        }
+
+        if ($paymentMethod !== 'cash_on_delivery' && $transactionId === '') {
+            $_SESSION['payment_error'] = 'Transaction ID is required for this payment method.';
+            header('Location: ' . BASE_URL . 'payment.php?order_id=' . $orderId);
+            exit;
+        }
+
+        if ($paymentMethod === 'cash_on_delivery' && $transactionId === '') {
+            $transactionId = 'COD-' . time();
+        }
+
+        $order = $this->orderModel->getOrderByIdForUser($orderId, (int) $_SESSION['user_id']);
+
+        if (!$order) {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        if ($order['status'] !== 'pending') {
+            $_SESSION['payment_error'] = 'Only pending orders can be paid.';
+            header('Location: ' . BASE_URL . 'invoice.php?order_id=' . $orderId);
+            exit;
+        }
+
+        $paymentSuccess = $this->orderModel->confirmOrderPayment(
+            $orderId,
+            (int) $_SESSION['user_id'],
+            (float) $order['total_cost'],
+            $paymentMethod,
+            $transactionId
+        );
+
+        if (!$paymentSuccess) {
+            $_SESSION['payment_error'] = 'Payment could not be completed. Please try again.';
+            header('Location: ' . BASE_URL . 'payment.php?order_id=' . $orderId);
+            exit;
+        }
+
+        header('Location: ' . BASE_URL . 'payment_success.php?order_id=' . $orderId);
+        exit;
+    }
+
+    public function showPaymentSuccess()
+    {
+        $this->requireMember();
+
+        $orderId = isset($_GET['order_id']) ? (int) $_GET['order_id'] : 0;
+
+        if ($orderId <= 0) {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        $order = $this->orderModel->getOrderByIdForUser($orderId, (int) $_SESSION['user_id']);
+
+        if (!$order) {
+            header('Location: ' . BASE_URL . 'member_cars.php');
+            exit;
+        }
+
+        if ($order['status'] !== 'confirmed') {
+            header('Location: ' . BASE_URL . 'invoice.php?order_id=' . $orderId);
+            exit;
+        }
+
+        $pageTitle = 'Payment Success';
+
+        require __DIR__ . '/../views/orders/payment_success.php';
+    }
+
+    public function showRentalHistory()
+    {
+        $this->requireMember();
+
+        $rentalHistory = $this->orderModel->getRentalHistoryForUser((int) $_SESSION['user_id']);
+
+        $pageTitle = 'Rental History';
+
+        require __DIR__ . '/../views/orders/rental_history.php';
+    }
+
     private function requireMember()
     {
         if (!isset($_SESSION['user_id'], $_SESSION['role']) || $_SESSION['role'] !== 'member') {

@@ -182,4 +182,121 @@ class Order
 
         return $success;
     }
+
+    public function confirmOrderPayment($orderId, $userId, $amount, $paymentMethod, $transactionId)
+    {
+        mysqli_begin_transaction($this->conn);
+
+        try {
+            $updateSql = "UPDATE orders
+                          SET status = ?, payment_method = ?
+                          WHERE id = ? AND user_id = ? AND status = ?";
+
+            $updateStmt = mysqli_prepare($this->conn, $updateSql);
+
+            if (!$updateStmt) {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+
+            $confirmedStatus = 'confirmed';
+            $pendingStatus = 'pending';
+
+            mysqli_stmt_bind_param(
+                $updateStmt,
+                "ssiis",
+                $confirmedStatus,
+                $paymentMethod,
+                $orderId,
+                $userId,
+                $pendingStatus
+            );
+
+            mysqli_stmt_execute($updateStmt);
+
+            if (mysqli_stmt_affected_rows($updateStmt) !== 1) {
+                mysqli_stmt_close($updateStmt);
+                mysqli_rollback($this->conn);
+                return false;
+            }
+
+            mysqli_stmt_close($updateStmt);
+
+            $paymentSql = "INSERT INTO payments (order_id, amount, payment_method, transaction_id)
+                           VALUES (?, ?, ?, ?)";
+
+            $paymentStmt = mysqli_prepare($this->conn, $paymentSql);
+
+            if (!$paymentStmt) {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+
+            mysqli_stmt_bind_param(
+                $paymentStmt,
+                "idss",
+                $orderId,
+                $amount,
+                $paymentMethod,
+                $transactionId
+            );
+
+            $paymentSuccess = mysqli_stmt_execute($paymentStmt);
+            mysqli_stmt_close($paymentStmt);
+
+            if (!$paymentSuccess) {
+                mysqli_rollback($this->conn);
+                return false;
+            }
+
+            mysqli_commit($this->conn);
+            return true;
+        } catch (Throwable $error) {
+            mysqli_rollback($this->conn);
+            return false;
+        }
+    }
+
+    public function getRentalHistoryForUser($userId)
+    {
+        $sql = "SELECT
+                    orders.id,
+                    orders.start_date,
+                    orders.end_date,
+                    orders.total_cost,
+                    orders.status,
+                    orders.payment_method,
+                    orders.order_date,
+                    cars.name AS car_name,
+                    cars.model AS car_model,
+                    cars.type AS car_type,
+                    cars.image_path,
+                    payments.transaction_id,
+                    payments.payment_date
+                FROM orders
+                INNER JOIN cars ON orders.car_id = cars.id
+                LEFT JOIN payments ON payments.order_id = orders.id
+                WHERE orders.user_id = ?
+                ORDER BY orders.order_date DESC";
+
+        $stmt = mysqli_prepare($this->conn, $sql);
+
+        if (!$stmt) {
+            return [];
+        }
+
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+        $orders = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $orders[] = $row;
+        }
+
+        mysqli_stmt_close($stmt);
+
+        return $orders;
+    }
 }
