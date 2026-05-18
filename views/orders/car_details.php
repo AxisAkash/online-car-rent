@@ -69,6 +69,13 @@ $today = date('Y-m-d');
         </div>
 
         <?php if ($isMember): ?>
+            <?php if (!empty($_SESSION['order_error'])): ?>
+                <div class="order-alert-error">
+                    <?= e($_SESSION['order_error']); ?>
+                </div>
+                <?php unset($_SESSION['order_error']); ?>
+            <?php endif; ?>
+            
             <form
                 class="order-form-card"
                 id="orderForm"
@@ -77,6 +84,7 @@ $today = date('Y-m-d');
                 data-price="<?= e($car['price_per_day']); ?>"
             >
                 <input type="hidden" name="car_id" value="<?= e($car['id']); ?>">
+                <input type="hidden" name="csrf_token" value="<?= e($_SESSION['csrf_token']); ?>">
 
                 <h3>Place Rental Order</h3>
 
