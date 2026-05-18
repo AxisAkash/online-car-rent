@@ -1,0 +1,9 @@
+<?php
+// payment_success.php
+
+require_once __DIR__ . '/config/app.php';
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/controllers/OrderController.php';
+
+$orderController = new OrderController($conn);
+$orderController->showPaymentSuccess();
