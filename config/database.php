@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 // config/database.php
 
 $host = 'localhost';
@@ -15,7 +14,6 @@ if (!$conn) {
 }
 
 mysqli_set_charset($conn, 'utf8mb4');
-=======
 
 class Database
 {
@@ -44,4 +42,4 @@ class Database
     }
 }
 
->>>>>>> origin/main
+
